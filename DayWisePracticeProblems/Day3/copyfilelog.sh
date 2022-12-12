@@ -1,0 +1,20 @@
+#!/bin/bash -x
+
+for files in *.log.1
+do
+	folderName=`echo $files | awk -F. '{print $1}'`;
+	echo $files;
+	echo $folderName;
+	printf "\n";
+	if [[ -d $folderName ]]
+	then
+		rm -r $folderName;
+	fi
+	mkdir $folderName;
+	cp $files $folderName/$files;
+	dmy=`date | awk '{print $2$3$6}'`;
+	echo "$dmy"
+	now=$folderName-$dmy.log
+	cp $folderName/$files  $folderName/$now
+done
+
